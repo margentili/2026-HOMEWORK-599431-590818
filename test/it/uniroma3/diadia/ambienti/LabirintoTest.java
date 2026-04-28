@@ -16,7 +16,7 @@ public class LabirintoTest {
 	
 	@Test
 	public void testGetStanzaVincente() {
-		assertEquals(sv.getNome(), l.getStanzaVincente().getNome());
+		assertEquals(sv.getNome(), l.getStanzaFinale().getNome());
 	}
 	
 	@Test

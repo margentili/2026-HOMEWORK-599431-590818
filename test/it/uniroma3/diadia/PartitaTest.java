@@ -15,8 +15,8 @@ public class PartitaTest {
 
     @Before
     public void setUp() {
-        l = new Labirinto();
-        p = new Partita(l);
+        p = new Partita();
+        l = p.getLabirinto();
         g = p.getGiocatore();
     }
 	
@@ -28,7 +28,7 @@ public class PartitaTest {
 	
 	@Test
 	public void testPartitaFinitaQuandoVinta() {
-		Stanza stanzaVincente = l.getStanzaVincente();
+		Stanza stanzaVincente = l.getStanzaFinale();
         p.setStanzaCorrente(stanzaVincente);
         assertTrue(p.isFinita());
 	}
@@ -67,7 +67,7 @@ public class PartitaTest {
 	
 	@Test
 	public void testGetStanzaCorrenteRestituisceStanzaVincente() {
-		p.setStanzaCorrente(l.getStanzaVincente());
+		p.setStanzaCorrente(l.getStanzaFinale());
 		assertEquals("Biblioteca", p.getStanzaCorrente().getNome());
 	}
 	//Test per il metodo vinta
@@ -85,13 +85,14 @@ public class PartitaTest {
 
 	@Test
 	public void testVintaDopoSetStanzaCorrenteVincente() {
-	    p.setStanzaCorrente(l.getStanzaVincente());
+	    p.setStanzaCorrente(l.getStanzaFinale());
 	    assertTrue(p.vinta());
 	}
+	
 	//Test per il metodo getLabirinto
 	@Test
 	public void testGetLabirinto() {
-		assertEquals(l, p.getLabirinto());
+		assertEquals(l,p.getLabirinto());
 	}
 	
 	//Test per il metodo getGiocatore

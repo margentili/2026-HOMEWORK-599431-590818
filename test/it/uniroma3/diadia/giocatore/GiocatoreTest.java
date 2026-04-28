@@ -6,13 +6,15 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-public class GiocatoreTest {
+import it.uniroma3.diadia.Partita;
 
+public class GiocatoreTest {
+	Partita p = new Partita();
 	Giocatore g = new Giocatore();
 	
 	@Test
 	public void testGetCfuDefault() {
-		assertEquals(20, g.getCfu());
+		assertEquals(20, p.getGiocatore().getCfu());
 	}
 	
 	@Test

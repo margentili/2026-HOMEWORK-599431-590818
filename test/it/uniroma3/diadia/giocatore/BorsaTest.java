@@ -1,4 +1,5 @@
 package it.uniroma3.diadia.giocatore;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.*;
 import static org.junit.Assert.*;
 
