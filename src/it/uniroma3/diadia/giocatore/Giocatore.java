@@ -4,8 +4,10 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class Giocatore {
 	private int cfu;
 	private Borsa borsa;
+	static final private int CFU_INIZIALI = 20;
 	
 	public Giocatore() {
+		this.cfu = CFU_INIZIALI;
 		this.borsa = new Borsa();
 	}
 
