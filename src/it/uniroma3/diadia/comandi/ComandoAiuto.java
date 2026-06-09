@@ -1,38 +1,34 @@
 package it.uniroma3.diadia.comandi;
-import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.IO;
 
-public class ComandoAiuto implements Comando {
-	
-	static final public String[] elencoComandi = {"vai", "aiuto", "fine","prendi","posa","guarda"};
-	private IO io;
-	private final static String NOME = "aiuto";
-	
-	@Override
-	public void esegui(Partita partita) {
-		for(int i=0;i<elencoComandi.length;i++)
-			io.mostraMessaggio(elencoComandi[i]+" ");
-		io.mostraMessaggio("");
-	}
-	
-	@Override
-	public void setParametro(String parametro) {
-		
-	}
-	
-	@Override
-	public String getParametro() {
-		return null;
-	}
-	
-	@Override
-	public void setIo(IO io) {
-		this.io = io;
-	}
-	
-	@Override
-	public String getNome() {
-		return NOME;
-	}
+import it.uniroma3.diadiaa.IO;
+import it.uniroma3.diadiaa.Partita;
+public class ComandoAiuto extends AbstractComando {
 
+    static final public String[] ELENCO_COMANDI = {"vai", "aiuto", "fine","prendi", "posa", "guarda","saluta","interagisci","regala"};
+    
+    private final static String NOME = "aiuto";
+    
+    private IO io;  // campo per tenere l'istanza di IO
+
+    @Override
+    public void esegui(Partita partita) {
+        for(int i=0; i< ELENCO_COMANDI.length; i++) 
+            this.io.mostraMessaggio(ELENCO_COMANDI[i]+" ");
+        this.io.mostraMessaggio("");
+    }
+
+    @Override
+    public String getNome() {
+        return NOME;
+    }
+
+    @Override
+    public void setIo(IO io) {
+        this.io = io;
+    }
+
+    @Override
+    public IO getIo() {
+        return this.io;
+    }
 }

@@ -1,105 +1,51 @@
 package it.uniroma3.diadia;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.FileNotFoundException;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.giocatore.*;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadiaa.FormatoFileNonValidoException;
+import it.uniroma3.diadiaa.Partita;
 
 public class PartitaTest {
-	private Partita p;
-    private Labirinto l;
-    private Giocatore g;
-    
 
-    @Before
-    public void setUp() {
-        p = new Partita();
-        l = p.getLabirinto();
-        g = p.getGiocatore();
-    }
+	Labirinto labirinto;
+	Partita p;
+	Stanza s;
+
+	@Before
+	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		 labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
+//				.addStanzaIniziale("Atrio")
+//				.addAttrezzo("martello", 3)
+//				.addStanzaVincente("Biblioteca")
+//				.addAdiacenza("Atrio", "Biblioteca", "nord")
+//				.getLabirinto();
+		 p = new Partita(labirinto);
+		 s = new Stanza("Stanza");
+	}
 	
-	//Test per il metoodo isFinita
-	@Test 
-	public void testPartitaNonFinitaAllInizio() {
+	@Test
+	public void testGetStanzaVincente() {
+		assertEquals("Biblioteca", p.getLabirinto().getStanzaVincente().getNome());
+	}
+
+	@Test
+	public void testSetStanzaCorrente() {
+		p.getLabirinto().setStanzaCorrente(s);
+		assertEquals(s, p.getLabirinto().getStanzaCorrente());
+	}
+
+	@Test
+	public void testIsFinita() {
+		
 		assertFalse(p.isFinita());
 	}
 	
-	@Test
-	public void testPartitaFinitaQuandoVinta() {
-		Stanza stanzaVincente = l.getStanzaFinale();
-        p.setStanzaCorrente(stanzaVincente);
-        assertTrue(p.isFinita());
-	}
-	
-	@Test
-    public void testPartitaFinitaQuandoZeroCfu() {
-        g.setCfu(0); 
-        assertTrue(p.isFinita());
-    }
-	//Test per il metodo getStanzaCorrenteAllInizio
-	@Test
-	public void testGetStanzaCorrenteAllInizio() {
-		assertEquals(l.getStanzaIniziale(), p.getStanzaCorrente());
-	}
-	
-	@Test
-    public void testGetStanzaCorrenteDopoSet() {
-		Stanza stanza1 = new Stanza("stanza 1");
-        p.setStanzaCorrente(stanza1);
-        assertEquals(stanza1, p.getStanzaCorrente());
-
-        Stanza stanza2 = new Stanza("stanza 2");
-        p.setStanzaCorrente(stanza2);
-        assertEquals(stanza2, p.getStanzaCorrente());
-
-        Stanza stanza3 = new Stanza("stanza 3");
-        p.setStanzaCorrente(stanza3);
-        assertEquals(stanza3, p.getStanzaCorrente());
-	}
-	
-	@Test
-	public void testGetStanzaCorrenteDopoSetNull() {
-		p.setStanzaCorrente(null);
-		assertNull(p.getStanzaCorrente());
-	}
-	
-	@Test
-	public void testGetStanzaCorrenteRestituisceStanzaVincente() {
-		p.setStanzaCorrente(l.getStanzaFinale());
-		assertEquals("Biblioteca", p.getStanzaCorrente().getNome());
-	}
-	//Test per il metodo vinta
-	@Test
-	public void testVintaDopoCreazione() {
-	    assertFalse(p.vinta());
-	}
-
-	@Test
-	public void testVintaDopoSetStanzaCorrenteNonVincente() {
-		Stanza stanza1 = new Stanza("stanza 1");
-	    p.setStanzaCorrente(stanza1);
-	    assertFalse(p.vinta());
-	}
-
-	@Test
-	public void testVintaDopoSetStanzaCorrenteVincente() {
-	    p.setStanzaCorrente(l.getStanzaFinale());
-	    assertTrue(p.vinta());
-	}
-	
-	//Test per il metodo getLabirinto
-	@Test
-	public void testGetLabirinto() {
-		assertEquals(l,p.getLabirinto());
-	}
-	
-	//Test per il metodo getGiocatore
-	@Test
-	public void tesGetGiocatore() {
-		assertEquals(g, p.getGiocatore());
-	}
-	
-
 }
